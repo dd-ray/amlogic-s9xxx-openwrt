@@ -20,7 +20,7 @@ if [[ -n "${ROOT_PTNAME}" ]]; then
 
     # Find the disk where the partition is located, only supports mmcblk?p? sd?? hd?? vd?? and other formats
     case "${ROOT_PTNAME}" in
-    mmcblk?p[1-4])
+    mmcblk?p[1-7])
         DISK_NAME="${ROOT_PTNAME:0:-2}"
         PARTITION_NAME="p"
         ;;
