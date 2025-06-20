@@ -25,6 +25,25 @@ echo "DISTRIB_SOURCECODE='official'" >>package/base-files/files/etc/openwrt_rele
 # Add luci-app-amlogic
 rm -rf package/luci-app-amlogic
 git clone https://github.com/ophub/luci-app-amlogic.git package/luci-app-amlogic
+
+
+echo '修改时区'
+sed -i "s/'UTC'/'CST-8'\n        set system.@system[-1].zonename='Asia\/Shanghai'/g" "package/base-files/files/bin/config_generate"
+
+echo '修改默认主题为argon'
+sed -i 's/config internal themes/config internal themes\n    option Argon  \"\/luci-static\/argon\"/g' "feeds/luci/modules/luci-base/root/etc/config/luci"
+sed -i 's/option mediaurlbase \/luci-static\/bootstrap/option mediaurlbase \"\/luci-static\/argon\"/g' "feeds/luci/modules/luci-base/root/etc/config/luci"
+
+
+# mosdns
+rm -rf feeds/packages/net/v2ray-geodata
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+
+# wechatpush
+git clone --depth 1 https://github.com/tty228/luci-app-wechatpush package/new/luci-app-wechatpush
+git clone --depth 1 https://github.com/nikkinikki-org/OpenWrt-nikki package/new/openWrt-nikki
+git clone --depth 1 https://github.com/vernesong/OpenClash package/new/openWrt-OpenClash
 #
 # Apply patch
 # git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
